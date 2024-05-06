@@ -4,7 +4,7 @@
 }
 
 body {
-  background-image: url(/img/space.jpg);
+  background-image: url(img/space.jpg);
   background-repeat: no-repeat;
   background-position: center;
   background-attachment: fixed;
@@ -54,7 +54,7 @@ body {
   background-color: black;
   border-radius: 25px;
   align-items: center;
-  justify-content: space-evenly;
+  justify-content: center;
 }
 
 .panel-element {

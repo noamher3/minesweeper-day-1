@@ -2,9 +2,14 @@
 
 var gBoard = [];
 
-const MINE = "@";
+const FLAG = "🚩";
+const MINE = "💣";
+const HINT = "💡";
+const LIVE = "❤️";
+
 const EMPTY = "";
-var livesElement;
+var livesElement = 3;
+
 var gLevel = {
   SIZE: 4,
   MINES: 2,
@@ -25,8 +30,17 @@ function onInit() {
 }
 
 function buildBoard() {
+  document.getElementById("mine").innerHTML = MINE;
   document.getElementById("mine-count").innerHTML = gLevel.MINES;
-  livesElement = document.getElementById("live-count");
+
+  document.getElementById("live").innerHTML = LIVE;
+  document.getElementById("live-count").innerHTML = livesElement;
+
+  document.getElementById("hint").innerHTML = HINT;
+
+  document.getElementById("flag").innerHTML = FLAG;
+  document.getElementById("flag-count").innerHTML = gLevel.MINES;
+
   for (let i = 0; i < gLevel.SIZE; i++) {
     gBoard.push([]);
     for (let j = 0; j < gLevel.SIZE; j++) {
@@ -77,6 +91,7 @@ function onCellClicked(elCell, i, j) {
   var cell;
   if (gBoard[i][j].isMine) {
     cell = MINE;
+    livesElement--;
   } else {
     cell = gBoard[i][j].minesAround;
   }
