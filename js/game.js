@@ -152,11 +152,11 @@ function onCellMarked(elCell) {
 function checkGameOver() {
   if (lives === 0) {
     gGame.isOn = false;
-    smileyElement.innerHTML = SMILEY.LOSE;
+    smileyElement.innerText = SMILEY.LOSE;
     console.log("lose");
   } else if (gGame.shownCount === Math.pow(gLevel.SIZE, 2) - gLevel.MINES) {
     gGame.isOn = false;
-    smileyElement.innerHTML = SMILEY.WIN;
+    smileyElement.innerText = SMILEY.WIN;
     console.log("win");
   }
 }
