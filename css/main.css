@@ -4,7 +4,7 @@
 }
 
 body {
-  background-image: url(img/space.jpg);
+  background-image: url(/img/space.jpg);
   background-repeat: no-repeat;
   background-position: center;
   background-attachment: fixed;
@@ -54,13 +54,21 @@ body {
   background-color: black;
   border-radius: 25px;
   align-items: center;
-  justify-content: center;
+  justify-content: space-evenly;
 }
 
 .panel-element {
   color: white;
   display: flex;
   gap: 5px;
+  align-items: center;
+}
+
+.smiley {
+  border: none;
+  background: none;
+  font-size: 40px;
+  cursor: pointer;
 }
 
 footer {
@@ -68,4 +76,8 @@ footer {
   height: 20px;
   background-color: white;
   text-align: center;
+}
+
+.clicked {
+  background-color: lightcoral;
 }
