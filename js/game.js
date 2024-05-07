@@ -11,10 +11,22 @@ const EMPTY = "";
 var livesElement;
 var lives;
 
-var gLevel = {
-  SIZE: 4,
-  MINES: 2,
+const LEVELS = {
+  EASY: {
+    SIZE: 4,
+    MINES: 2,
+  },
+  NORMAL: {
+    SIZE: 8,
+    MINES: 14,
+  },
+  EXPERT: {
+    SIZE: 12,
+    MINES: 32,
+  },
 };
+
+var gLevel;
 
 var smileyElement;
 const SMILEY = {
@@ -28,8 +40,9 @@ var flags;
 
 var gGame;
 
-function onInit() {
+function onInit(level) {
   gBoard = [];
+  gLevel = LEVELS[level];
   gGame = {
     isOn: true,
     shownCount: 0,
@@ -38,6 +51,11 @@ function onInit() {
   };
   lives = 3;
   flags = gLevel.MINES;
+  smileyElement = document.getElementById("smiley-element");
+  smileyElement.innerHTML = SMILEY.SMILE;
+  smileyElement.onclick = function () {
+    onInit(level);
+  };
   // console.log("hi");
   buildBoard();
   console.log(gBoard);
@@ -59,8 +77,6 @@ function buildBoard() {
   flagElemnt = document.getElementById("flag-count");
   flagElemnt.innerHTML = flags;
 
-  smileyElement = document.getElementById("smiley-element");
-  smileyElement.innerHTML = SMILEY.SMILE;
   for (let i = 0; i < gLevel.SIZE; i++) {
     gBoard.push([]);
     for (let j = 0; j < gLevel.SIZE; j++) {
@@ -123,17 +139,12 @@ function onCellClicked(elCell, i, j) {
   if (gBoard[i][j].isMine) {
     cell = MINE;
     livesElement.innerHTML = --lives;
+    elCell.innerHTML = cell;
+    elCell.classList.add("clicked");
   } else {
-    if (gBoard[i][j].minesAround === 0) {
-      cell = " ";
-    } else {
-      cell = gBoard[i][j].minesAround;
-    }
-    gGame.shownCount++;
+    expandShown(gBoard, elCell, i, j);
   }
-  elCell.innerHTML = cell;
 
-  elCell.classList.add("clicked");
   checkGameOver();
 }
 
@@ -153,12 +164,23 @@ function checkGameOver() {
   if (lives === 0) {
     gGame.isOn = false;
     smileyElement.innerText = SMILEY.LOSE;
+    alert("never give up! try again");
     console.log("lose");
   } else if (gGame.shownCount === Math.pow(gLevel.SIZE, 2) - gLevel.MINES) {
     gGame.isOn = false;
     smileyElement.innerText = SMILEY.WIN;
+    alert("you are a champion! now do it faster!");
     console.log("win");
   }
 }
 
-function expandShown(board, elCell, i, j) {}
+function expandShown(board, elCell, i, j) {
+  if (!gBoard[i][j].minesAround) {
+    elCell.innerHTML = " ";
+    showNeighbors(board, i, j);
+  } else {
+    elCell.innerHTML = gBoard[i][j].minesAround;
+    gGame.shownCount++;
+  }
+  elCell.classList.add("clicked");
+}

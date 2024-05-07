@@ -9,10 +9,16 @@
     <link rel="stylesheet" href="css/main.css" />
   </head>
 
-  <body onload="onInit()">
+  <body onload="onInit('EASY')">
     <h1 class="title">minesweeper game</h1>
     <div class="main-container">
-      <button onclick="onInit()" id="smiley-element" class="smiley"></button>
+      <button id="smiley-element" class="smiley"></button>
+      <div class="levels-panel">
+        <button onclick="onInit('EASY')">EASY</button>
+        <button onclick="onInit('NORMAL')">NORMAL</button>
+        <button onclick="onInit('EXPERT')">EXPERT</button>
+      </div>
+
       <div class="panel">
         <div class="panel-element">
           <p id="mine"></p>
@@ -38,6 +44,6 @@
         <tbody class="board"></tbody>
       </table>
     </div>
-    <footer>Noam Hertziger</footer>
+    <footer>Ⓒ Noam Hertziger</footer>
   </body>
 </html>
