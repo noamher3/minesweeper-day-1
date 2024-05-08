@@ -30,12 +30,13 @@ function showNeighbors(board, rowIdx, colIdx) {
       if (!gBoard[i][j].minesAround) {
         elCell.innerHTML = " ";
         elCell.classList.add("clicked");
+        // gGame.shownCount++;
         showNeighbors(board, i, j);
       } else {
+        // gGame.shownCount++;
         elCell.innerHTML = gBoard[i][j].minesAround;
         elCell.classList.add("clicked");
       }
-      gGame.shownCount++;
     }
   }
 }
