@@ -63,6 +63,7 @@ body {
   display: flex;
   gap: 5px;
   align-items: center;
+  justify-content: center;
 }
 
 .smiley {
@@ -88,6 +89,35 @@ body {
   border-radius: 25px;
   border: none;
   font-family: "Courier New", Courier, monospace;
+  cursor: pointer;
+}
+
+#best-score {
+  color: white;
+}
+
+.score {
+  display: flex;
+  flex-direction: column;
+  background-color: black;
+  width: fit-content;
+  align-self: center;
+  padding: 12px;
+  border-radius: 20px;
+  align-items: center;
+  gap: 5px;
+}
+
+#timer-count {
+  font-size: 30px;
+}
+
+.selected {
+  background-color: lightgray;
+  border-radius: 25px;
+}
+
+#hint {
   cursor: pointer;
 }
 

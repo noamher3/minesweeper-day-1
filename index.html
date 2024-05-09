@@ -21,11 +21,6 @@
 
       <div class="panel">
         <div class="panel-element">
-          <p id="timer">🕒</p>
-          <p id="timer-count">0</p>
-        </div>
-
-        <div class="panel-element">
           <p id="mine"></p>
           <p id="mine-count">2</p>
         </div>
@@ -36,8 +31,8 @@
         </div>
 
         <div class="panel-element">
-          <p id="hint">💡</p>
-          <p>3</p>
+          <p id="hint" onclick="useHint()">💡</p>
+          <p id="hint-count"></p>
         </div>
 
         <div class="panel-element">
@@ -49,6 +44,16 @@
         <tbody class="board"></tbody>
       </table>
     </div>
+
+    <div class="score">
+      <div id="best-score"></div>
+
+      <div class="panel-element">
+        <p id="timer">🕒</p>
+        <p id="timer-count">0</p>
+      </div>
+    </div>
+
     <footer>Ⓒ Noam Hertziger</footer>
   </body>
 </html>

@@ -14,6 +14,10 @@ var firstClick;
 var timeInterval;
 var timeElapsed;
 
+var usingHint;
+var hints;
+var hintCountElement;
+
 const LEVELS = {
   EASY: {
     LEVEL: "EASY",
@@ -45,9 +49,15 @@ var flagElemnt;
 var flags;
 
 var gGame;
+var hintElement;
 
 function onInit(level) {
   firstClick = true;
+  usingHint = false;
+  hintElement = document.getElementById("hint");
+  hints = 3;
+  hintCountElement = document.getElementById("hint-count");
+  hintCountElement.innerHTML = hints;
   gBoard = [];
   gLevel = LEVELS[level];
   gGame = {
@@ -57,6 +67,11 @@ function onInit(level) {
     secsPassed: 0,
   };
   lives = 3;
+  document.getElementById("best-score").innerHTML =
+    "best score is: " +
+    (localStorage.getItem(gLevel.LEVEL)
+      ? localStorage.getItem(gLevel.LEVEL) + "s"
+      : "no score yet");
   flags = gLevel.MINES;
   timerCountElement = document.getElementById("timer-count");
   clearInterval(timeInterval);
@@ -156,6 +171,15 @@ function onCellClicked(elCell, i, j) {
   }
 
   if (elCell.innerHTML !== EMPTY || !gGame.isOn) return;
+
+  if (usingHint) {
+    usingHint = false;
+    hintElement.classList.remove("selected");
+    hints--;
+    hintCountElement.innerHTML = hints;
+    showHint(gBoard, i, j, elCell);
+    return;
+  }
   if (gBoard[i][j].isMine) {
     livesElement.innerHTML = --lives;
     elCell.innerHTML = MINE;
@@ -221,13 +245,32 @@ function checkGameOver() {
       clearInterval(timeInterval);
       smileyElement.innerText = SMILEY.WIN;
       showAllMines();
-      if ((+localStorage.getItem(gLevel.LEVEL) ?? Infinity) > timeElapsed) {
-        localStorage.setItem(gLevel.LEVEL, timeElapsed);
+      console.log(+localStorage.getItem(gLevel.LEVEL), timeElapsed / 100);
+      console.log(
+        (localStorage.getItem(gLevel.LEVEL)
+          ? +localStorage.getItem(gLevel.LEVEL)
+          : Infinity) >
+          timeElapsed / 100
+      );
+
+      if (
+        (localStorage.getItem(gLevel.LEVEL)
+          ? +localStorage.getItem(gLevel.LEVEL)
+          : Infinity) >
+        timeElapsed / 100
+      ) {
+        localStorage.setItem(gLevel.LEVEL, (timeElapsed / 100).toFixed(3));
       }
       setTimeout(() => alert("What a champion! now do it faster!"), 200);
       console.log("win");
     }
   }
+}
+
+function useHint() {
+  if (hints === 0 || firstClick) return;
+  usingHint = !usingHint;
+  hintElement.classList.toggle("selected");
 }
 
 function expandShown(board, elCell, i, j) {
